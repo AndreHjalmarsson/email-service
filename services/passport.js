@@ -12,7 +12,7 @@ passport.use(
     (accessToken, refresh, profile) => {
       console.log(accessToken);
       console.log(refresh);
-      console.log('profile', profile);
+      console.log('profile', profile.id);
     }
   )
 );
