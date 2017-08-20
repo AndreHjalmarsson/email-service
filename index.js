@@ -1,11 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 
+require('./models/UserModel');
+const keys = require('./config/keys');
 const routes = require('./routes');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/emaily-dev');
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: []
+  })
+);
+
+mongoose.connect(keys.mongoUri);
 mongoose.connection.on('error', error =>
   console.log(`DB connection falied: ${error.message}`)
 );
