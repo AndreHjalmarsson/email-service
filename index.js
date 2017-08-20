@@ -7,19 +7,22 @@ require('./models/UserModel');
 const keys = require('./config/keys');
 const routes = require('./routes');
 
+mongoose.connect(keys.mongoUri);
+mongoose.connection.on('error', error =>
+  console.log(`DB connection falied: ${error.message}`)
+);
+
 const app = express();
 
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: []
+    keys: [key.cookieKey]
   })
 );
 
-mongoose.connect(keys.mongoUri);
-mongoose.connection.on('error', error =>
-  console.log(`DB connection falied: ${error.message}`)
-);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 
