@@ -9,7 +9,7 @@ const routes = require('./routes');
 
 mongoose.connect(keys.mongoURI);
 mongoose.connection.on('error', error =>
-  console.log(`DB connection falied: ${error.message}`)
+  console.log(`Db connection falied: ${error.message}`)
 );
 
 const app = express();
